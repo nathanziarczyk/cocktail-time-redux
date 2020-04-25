@@ -168,7 +168,11 @@ export default function Header() {
         </div>
         <Divider />
         <List>
-          <Link to="/" className={classes.linkStyles}>
+          <Link
+            to="/"
+            className={classes.linkStyles}
+            onClick={handleDrawerClose}
+          >
             <ListItem
               button
               className={location.pathname === "/" && classes.active}
@@ -182,7 +186,11 @@ export default function Header() {
         </List>
         <Divider />
         <List>
-          <Link to="/favorites" className={classes.linkStyles}>
+          <Link
+            to="/favorites"
+            className={classes.linkStyles}
+            onClick={handleDrawerClose}
+          >
             <ListItem
               button
               className={location.pathname === "/favorites" && classes.active}
@@ -199,7 +207,6 @@ export default function Header() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" style={{ marginTop: "1em" }}>
-          {/* De homepage */}
           <Route exact path="/">
             <Grid container direction="column">
               <Grid item xs={12} style={{ textAlign: "center" }}>

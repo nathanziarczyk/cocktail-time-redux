@@ -1,5 +1,4 @@
 import React from "react";
-import clsx from "clsx";
 import { useDispatch } from "react-redux";
 import {
   makeStyles,
@@ -18,7 +17,6 @@ import {
   Button,
 } from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { searchById, removeFavorite } from "../data/favorites";
 import { Ingrediënts } from "./../helper";
