@@ -14,3 +14,10 @@ export const useField = (initValue = "", errorSupport = false) => {
   }
   return { value, onChange };
 };
+
+export const useDarkMode = (currentTheme) => {
+  const [theme, setTheme] = useState(currentTheme);
+  const {
+    theme: { palette: type },
+  } = theme;
+};

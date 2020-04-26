@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -15,7 +15,15 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import SearchIcon from "@material-ui/icons/Search";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import {
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  FormControlLabel,
+  Switch,
+  useTheme,
+  createMuiTheme,
+} from "@material-ui/core";
 import { Link, Route, useLocation } from "react-router-dom";
 
 import Search from "./Search";
@@ -106,7 +114,7 @@ const useStyles = makeStyles((theme) => ({
     height: 240,
   },
   active: {
-    backgroundColor: "#DDD",
+    backgroundColor: theme.palette.primary.light,
   },
 }));
 
@@ -120,7 +128,19 @@ export default function Header() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  const currentTheme = useTheme();
+  const [theme, setTheme] = useState(currentTheme);
+  createMuiTheme(theme);
+  console.log(theme);
+  const toggleDarkMode = () => {
+    setTheme({
+      ...theme,
+      palette: {
+        ...theme.palette,
+        type: theme.palette.type === "light" ? "dark" : "light",
+      },
+    });
+  };
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -152,6 +172,7 @@ export default function Header() {
               Cocktail time ☀️
             </span>
           </Typography>
+          <FormControlLabel control={<Switch onClick={toggleDarkMode} />} />
         </Toolbar>
       </AppBar>
       <Drawer
