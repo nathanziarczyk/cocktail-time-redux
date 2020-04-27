@@ -1,14 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { ThemeProvider } from "@material-ui/core";
-import { theme } from "./theme";
+import store from "./data/index";
+import { Provider, useSelector } from "react-redux";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
+  <Provider store={store}>
+    <React.StrictMode>
       <App />
-    </ThemeProvider>
-  </React.StrictMode>,
+    </React.StrictMode>
+  </Provider>,
+
   document.getElementById("root")
 );

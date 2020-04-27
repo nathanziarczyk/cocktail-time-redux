@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -21,18 +21,30 @@ import {
   ListItemText,
   FormControlLabel,
   Switch,
-  useTheme,
-  createMuiTheme,
 } from "@material-ui/core";
 import { Link, Route, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toggleDarkMode } from "./../data/theme";
 
 import Search from "./Search";
 import Cocktails from "./Cocktails";
 import Favorites from "./Favorites";
+import { blue, yellow } from "@material-ui/core/colors";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
+  switchBase: {
+    color: yellow[600],
+    "&$checked": {
+      color: blue[900],
+    },
+    "&$checked + $track": {
+      backgroundColor: blue[900],
+    },
+  },
+  checked: {},
+  track: {},
   linkStyles: {
     textDecoration: "none",
     color: "black",
@@ -121,6 +133,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
   const location = useLocation();
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -128,18 +141,8 @@ export default function Header() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const currentTheme = useTheme();
-  const [theme, setTheme] = useState(currentTheme);
-  createMuiTheme(theme);
-  console.log(theme);
-  const toggleDarkMode = () => {
-    setTheme({
-      ...theme,
-      palette: {
-        ...theme.palette,
-        type: theme.palette.type === "light" ? "dark" : "light",
-      },
-    });
+  const switchClickHandler = () => {
+    dispatch(toggleDarkMode());
   };
   return (
     <div className={classes.root}>
@@ -172,7 +175,20 @@ export default function Header() {
               Cocktail time ☀️
             </span>
           </Typography>
-          <FormControlLabel control={<Switch onClick={toggleDarkMode} />} />
+          <FormControlLabel
+            label="Dark Mode"
+            labelPlacement="bottom"
+            control={
+              <Switch
+                classes={{
+                  switchBase: classes.switchBase,
+                  track: classes.track,
+                  checked: classes.checked,
+                }}
+                onClick={switchClickHandler}
+              />
+            }
+          />
         </Toolbar>
       </AppBar>
       <Drawer

@@ -1,16 +1,18 @@
 import React from "react";
-import { Provider } from "react-redux";
+import { useSelector } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core";
 import Layout from "./components/Layout";
-import store from "./data/index";
 
 function App() {
+  const data = useSelector((state) => state.theme);
+  const theme = createMuiTheme(data);
   return (
-    <Provider store={store}>
+    <ThemeProvider theme={theme}>
       <Router>
         <Layout />
       </Router>
-    </Provider>
+    </ThemeProvider>
   );
 }
 
