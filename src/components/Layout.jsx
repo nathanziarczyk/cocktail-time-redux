@@ -23,7 +23,7 @@ import {
   Switch,
 } from "@material-ui/core";
 import { Link, Route, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleDarkMode } from "./../data/theme";
 
 import Search from "./Search";
@@ -131,6 +131,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header() {
+  const themeType = useSelector((state) => state.theme.palette.type);
   const location = useLocation();
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -176,7 +177,7 @@ export default function Header() {
             </span>
           </Typography>
           <FormControlLabel
-            label="Dark Mode"
+            label={themeType === "light" ? "Dark mode" : "Light mode"}
             labelPlacement="bottom"
             control={
               <Switch
